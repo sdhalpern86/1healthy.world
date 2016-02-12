@@ -20,14 +20,14 @@ angular.module('bahmni.clinical')
                 $scope.additionalAttributesConceptName = additionalAttributes && additionalAttributes.name.name;
 
                 var results = _.find(bacteriologyConceptSet.setMembers, function (member) {
-                    return member.conceptClass.name == "Bacteriology Results"
+                    return member.conceptClass.name === "Bacteriology Results"
                 });
                 $scope.resultsConceptName = results && results.name.name;
 
                 var sampleSource = _.find(bacteriologyConceptSet.setMembers, function (member) {
                     return member.name.name === "Specimen Sample Source"
                 });
-                $scope.allSamples = sampleSource != undefined && _.map(sampleSource.answers, function (answer) {
+                $scope.allSamples = sampleSource !== undefined && _.map(sampleSource.answers, function (answer) {
                         return new Bahmni.Common.Domain.ConceptMapper().map(answer);
                     });
                 if($scope.savedSpecimens) {
@@ -54,7 +54,7 @@ angular.module('bahmni.clinical')
                     dirtySpecimen.hasIllegalType = !dirtySpecimen.type;
                     dirtySpecimen.hasIllegalTypeFreeText = !dirtySpecimen.typeFreeText;
                 });
-                return {allow: dirtySpecimens[0] == undefined};
+                return {allow: dirtySpecimens[0] === undefined};
             };
 
             var saveSpecimens = function () {
@@ -87,7 +87,7 @@ angular.module('bahmni.clinical')
                         return specimen.isEmpty();
                     }
                 );
-                if (emptyRows.length == 0 && (!$scope.isOnDashboard ||  $scope.newSpecimens.length == 0)) {
+                if (emptyRows.length === 0 && (!$scope.isOnDashboard ||  $scope.newSpecimens.length === 0)) {
                     createNewSpecimen();
                 }
             };
@@ -101,7 +101,7 @@ angular.module('bahmni.clinical')
                 var specimenBeingEdited = _.find($scope.newSpecimens, function (newSpecimen) {
                     return newSpecimen.existingObs === specimen.existingObs;
                 });
-                return specimenBeingEdited != undefined;
+                return specimenBeingEdited !== undefined;
             };
 
             $scope.editSpecimen = function (specimen) {
@@ -142,7 +142,7 @@ angular.module('bahmni.clinical')
 
             var handleSampleTypeOther = function(){
                 for(var specimen in $scope.newSpecimens){
-                    if($scope.newSpecimens[specimen].type && $scope.newSpecimens[specimen].type.name == Bahmni.Clinical.Constants.bacteriologyConstants.otherSampleType){
+                    if($scope.newSpecimens[specimen].type && $scope.newSpecimens[specimen].type.name === Bahmni.Clinical.Constants.bacteriologyConstants.otherSampleType){
                         $scope.newSpecimens[specimen].showTypeFreeText = true;
                         if($scope.freeText) {
                             $scope.newSpecimens[specimen].typeFreeText = $scope.freeText;

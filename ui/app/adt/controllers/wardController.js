@@ -9,15 +9,16 @@ angular.module('bahmni.adt')
                     $scope.expanded = $rootScope.currentUser.isFavouriteWard($scope.ward.ward.name);
                     $scope.showWardList();
                 } else {
-                    $scope.expanded = ($rootScope.bedDetails && $rootScope.bedDetails.wardUuid == $scope.ward.ward.uuid);
+                    $scope.expanded = ($rootScope.bedDetails && $rootScope.bedDetails.wardUuid === $scope.ward.ward.uuid);
                     $scope.showWardLayout();
                 }
             };
 
             $scope.toggleExpandState = function () {
                 $scope.expanded = !$scope.expanded;
-                if(!$scope.expanded)
-                $scope.showWardList();
+                if(!$scope.expanded) {
+                    $scope.showWardList();
+                }
                 if($scope.readOnly) {
                     $rootScope.currentUser.toggleFavoriteWard($scope.ward.ward.name);
                     userService.savePreferences();
@@ -25,7 +26,7 @@ angular.module('bahmni.adt')
             };
 
             $scope.toggleWardView = function(){
-                ($scope.currentView == 'wardLayout') ? $scope.showWardList() : $scope.showWardLayout();
+                ($scope.currentView === 'wardLayout') ? $scope.showWardList() : $scope.showWardLayout();
                 expandView();
             };
 

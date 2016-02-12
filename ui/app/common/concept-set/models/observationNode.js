@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.ConceptSet.ObservationNode = function (observation, savedObs, conceptUIConfig) {
     angular.extend(this, observation);
 
@@ -91,12 +93,12 @@ Bahmni.ConceptSet.ObservationNode = function (observation, savedObs, conceptUICo
 
 Bahmni.ConceptSet.ObservationNode.prototype = {
     canAddMore: function() {
-        return this.conceptUIConfig.allowAddMore == true;
+        return this.conceptUIConfig.allowAddMore === true;
     },
 
     isStepperControl: function() {
         if(this.isNumeric()){
-            return this.conceptUIConfig.stepper == true;
+            return this.conceptUIConfig.stepper === true;
         }
         return false;
     },
@@ -148,7 +150,9 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
         if (observations[0].isMultiSelect) {
             return observations[0];
         }
-        if(primaryObs.uuid && !primaryObs.voided) return primaryObs;
+        if(primaryObs.uuid && !primaryObs.voided) {
+            return primaryObs;
+        }
 
         return observations[1] && (observations[1].value || observations[1].value === "") && !observations[1].voided? observations[1]:observations[0];
     },
@@ -183,7 +187,7 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
         if (this.primaryObs.atLeastOneValueSet() && this.primaryObs.hasValue()) {
             this.unknownObs.value = false;
         } else {
-            if(this.unknownObs.value == false){
+            if(this.unknownObs.value === false){
                 this.unknownObs.value = undefined;
             }
         }
@@ -207,26 +211,46 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
     },
 
     getControlType: function () {
-        if (this.conceptUIConfig.freeTextAutocomplete) return "freeTextAutocomplete";
-        if (this.conceptUIConfig.autocomplete) return "autocomplete";
-        if (this.isHtml5InputDataType()) return "html5InputDataType";
-        if (this.getPrimaryObs().isCoded() && this.primaryObs.isMultiSelect) return "buttonselect";
-        if (this.primaryObs.isText()) return "text";
-        if (this.primaryObs.isCoded()) return this._getCodedControlType();
-        if (this.primaryObs.isBoolean) return "buttonselect";
+        if (this.conceptUIConfig.freeTextAutocomplete) {
+            return "freeTextAutocomplete";
+        }
+        if (this.conceptUIConfig.autocomplete) {
+            return "autocomplete";
+        }
+        if (this.isHtml5InputDataType()) {
+            return "html5InputDataType";
+        }
+        if (this.getPrimaryObs().isCoded() && this.primaryObs.isMultiSelect) {
+            return "buttonselect";
+        }
+        if (this.primaryObs.isText()) {
+            return "text";
+        }
+        if (this.primaryObs.isCoded()) {
+            return this._getCodedControlType();
+        }
+        if (this.primaryObs.isBoolean) {
+            return "buttonselect";
+        }
         return "unknown";
     },
 
     _getCodedControlType: function () {
         var conceptUIConfig = this.conceptUIConfig;
-        if (conceptUIConfig.multiselect) return "multiselect";
-        if (conceptUIConfig.buttonSelect) return "buttonselect";
-        if (conceptUIConfig.autocomplete) return "autocomplete";
+        if (conceptUIConfig.multiselect) {
+            return "multiselect";
+        }
+        if (conceptUIConfig.buttonSelect) {
+            return "buttonselect";
+        }
+        if (conceptUIConfig.autocomplete) {
+            return "autocomplete";
+        }
         return "dropdown";
     },
 
     isHtml5InputDataType: function () {
-        return ['Date', 'Numeric', 'Datetime'].indexOf(this.primaryObs.getDataTypeName()) != -1;
+        return ['Date', 'Numeric', 'Datetime'].indexOf(this.primaryObs.getDataTypeName()) !== -1;
     },
 
     _isDateDataType: function () {
@@ -281,21 +305,39 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
 
     isValid: function (checkRequiredFields, conceptSetRequired) {
 
-        if (this.isGroup()) return this._hasValidChildren(checkRequiredFields, conceptSetRequired);
-        if(checkRequiredFields){
-            if (conceptSetRequired && this.isRequired() && !this.getPrimaryObs().hasValue()) return false;
-            if (this.isRequired() && !this.getPrimaryObs().hasValue()) return false;
-            if (this.getControlType() === "freeTextAutocomplete" ) { return this.isValidFreeTextAutocomplete()}
+        if (this.isGroup()) {
+            return this._hasValidChildren(checkRequiredFields, conceptSetRequired);
         }
-        if (this._isDateDataType()) return this.getPrimaryObs().isValidDate();
-        if (this.getPrimaryObs().hasValue() && this.hasDuration()) return false;
-        if (this.abnormalObs && this.abnormalObs.erroneousValue) return false;
-        if (this.getPrimaryObs().hasValue() && this.getPrimaryObs()._isDateTimeDataType()) return !this.hasInvalidDateTime();
+        if (checkRequiredFields) {
+            if (conceptSetRequired && this.isRequired() && !this.getPrimaryObs().hasValue()) {
+                return false;
+            }
+            if (this.isRequired() && !this.getPrimaryObs().hasValue()) {
+                return false;
+            }
+            if (this.getControlType() === "freeTextAutocomplete") {
+                return this.isValidFreeTextAutocomplete()
+            }
+        }
+        if (this._isDateDataType()) {
+            return this.getPrimaryObs().isValidDate();
+        }
+        if (this.getPrimaryObs().hasValue() && this.hasDuration()) {
+            return false;
+        }
+        if (this.abnormalObs && this.abnormalObs.erroneousValue) {
+            return false;
+        }
+        if (this.getPrimaryObs().hasValue() && this.getPrimaryObs()._isDateTimeDataType()) {
+            return !this.hasInvalidDateTime();
+        }
         return true;
     },
 
     isValueInAbsoluteRange: function () {
-        if(this.abnormalObs!=null && this.abnormalObs.erroneousValue) return false;
+        if(this.abnormalObs !== null && this.abnormalObs.erroneousValue) {
+            return false;
+        }
         return true;
     },
 
@@ -327,9 +369,9 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
     getFreeTextObs : function(){
         if(!this.freeTextPrimaryObs){
             this.freeTextPrimaryObs = this.groupMembers.filter(function (member) {
-                return (((member.concept.conceptClass.name === Bahmni.Common.Constants.miscConceptClassName)
-                    || (member.concept.conceptClass === Bahmni.Common.Constants.miscConceptClassName))
-                    && (member.concept.dataType!=="Coded"));
+                return (((member.concept.conceptClass.name === Bahmni.Common.Constants.miscConceptClassName) ||
+                (member.concept.conceptClass === Bahmni.Common.Constants.miscConceptClassName)) &&
+                (member.concept.dataType!=="Coded"));
             })[0];
         }
         return this.freeTextPrimaryObs;
@@ -338,9 +380,9 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
     getCodedObs: function(){
         if(!this.codedPrimaryObs){
             this.codedPrimaryObs= this.groupMembers.filter(function (member) {
-                return (((member.concept.conceptClass.name === Bahmni.Common.Constants.miscConceptClassName)
-                    || (member.concept.conceptClass === Bahmni.Common.Constants.miscConceptClassName))
-                    && (member.concept.dataType==="Coded"));
+                return (((member.concept.conceptClass.name === Bahmni.Common.Constants.miscConceptClassName) ||
+                (member.concept.conceptClass === Bahmni.Common.Constants.miscConceptClassName)) &&
+                (member.concept.dataType==="Coded"));
             })[0];
         }
         return this.codedPrimaryObs;
@@ -371,10 +413,14 @@ Bahmni.ConceptSet.ObservationNode.prototype = {
     },
 
     hasInvalidDateTime: function () {
-        if (this.isComputed()) return false;
+        if (this.isComputed()) {
+            return false;
+        }
         var date = Bahmni.Common.Util.DateUtil.parse(this.value);
         if (!this.conceptUIConfig.allowFutureDates) {
-            if (moment() < date) return true;
+            if (moment() < date) {
+                return true;
+            }
         }
         return this.value === "Invalid Datetime";
     }

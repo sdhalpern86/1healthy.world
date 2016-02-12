@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('bahmni.common.displaycontrol.chronicTreatmentChart')
     .controller('AllChronicTreatmentChartController', ['$scope',
         function ($scope) {

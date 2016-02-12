@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.LabConceptsMapper = (function(){
     var LabConceptsMapper = function() { };
 
@@ -11,7 +13,9 @@ Bahmni.LabConceptsMapper = (function(){
             var department = { name: departmentConcept.name.name };
             angular.forEach(departmentConcept.setMembers, function(testConcept){
                 var test = tests.filter(function(test){ return test.uuid === testConcept.uuid })[0];
-                if(test) test.department = department;
+                if(test) {
+                    test.department = department;
+                }
             });
         });
     }
@@ -52,7 +56,9 @@ Bahmni.LabConceptsMapper = (function(){
 
     LabConceptsMapper.prototype = {
         map: function(labConceptSet, departmentConceptSet) {
-            if(!labConceptSet) return [];
+            if(!labConceptSet) {
+                return [];
+            }
             var tests = [];
             var sampleConcepts = labConceptSet.setMembers
             angular.forEach(sampleConcepts, function(sampleConcept) {

@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.OtherInvestigationsConceptsMapper = (function(){
 	var OtherInvestigationsConceptsMapper = function(orderTypesMap) {
 		this.orderTypesMap = orderTypesMap;
@@ -29,7 +31,9 @@ Bahmni.OtherInvestigationsConceptsMapper = (function(){
 	OtherInvestigationsConceptsMapper.prototype = {
 		map: function(otherInvestigationsConcept, categoryConceptSet) {
 			var self = this;
-	        if(!otherInvestigationsConcept) return [];
+	        if(!otherInvestigationsConcept) {
+				return [];
+			}
 	        var tests = [];
 	        var testTypeSets = otherInvestigationsConcept.setMembers.filter(function(concept) { return concept.set; });
 	        angular.forEach(testTypeSets, function(concept) {

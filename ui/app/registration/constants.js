@@ -1,3 +1,5 @@
+'use strict';
+
 var Bahmni = Bahmni || {};
 Bahmni.Registration = Bahmni.Registration || {};
 var hostUrl = Bahmni.Common.Constants.hostURL;

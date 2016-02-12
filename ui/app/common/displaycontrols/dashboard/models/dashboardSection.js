@@ -23,7 +23,7 @@ Bahmni.Common.DisplayControl.Dashboard.Section = function (section) {
     if (this.isObservation === true) {
         this.viewName = "../common/displaycontrols/dashboard/views/sections/observationSection.html";
     } else if (commonDisplayControlNames.some(function (name) {
-            return name == section.name
+            return name === section.name
         })) {
         this.viewName = "../common/displaycontrols/dashboard/views/sections/" + this.name + ".html";
     } else {

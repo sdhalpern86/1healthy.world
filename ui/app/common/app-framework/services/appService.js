@@ -6,7 +6,6 @@ angular.module('bahmni.common.appFramework')
         var baseUrl = Bahmni.Common.Constants.baseUrl;
         var customUrl = Bahmni.Common.Constants.customUrl;
         var appDescriptor = null;
-        var self = this;
 
         var loadConfig = function (url) {
             return $http.get(url, {withCredentials: true});
@@ -22,7 +21,7 @@ angular.module('bahmni.common.appFramework')
                     deferrable.resolve(appDescriptor);
                 },
                 function (error) {
-                    if (error.status != 404) {
+                    if (error.status !== 404) {
                         deferrable.reject(error);
                     } else {
                         deferrable.resolve(appDescriptor);
@@ -59,7 +58,7 @@ angular.module('bahmni.common.appFramework')
 
                     }
                 },function (error) {
-                    if (error.status != 404) {
+                    if (error.status !== 404) {
                         deferrable.reject(error);
                     } else {
                         deferrable.resolve(appDescriptor);
@@ -95,7 +94,7 @@ angular.module('bahmni.common.appFramework')
 
                 }
             }, function (error) {
-                if (error.status != 404) {
+                if (error.status !== 404) {
                     deferrable.reject(error);
                 } else {
                     deferrable.resolve(appDescriptor);
@@ -131,7 +130,7 @@ angular.module('bahmni.common.appFramework')
                         deferrable.resolve(appDescriptor);
                     }
                 }, function (error) {
-                    if (error.status != 404) {
+                    if (error.status !== 404) {
                         deferrable.reject(error);
                     } else {
                         deferrable.resolve(appDescriptor);
@@ -180,7 +179,7 @@ angular.module('bahmni.common.appFramework')
             var promises = [];
             var opts = options || {'app': true, 'extension': true};
 
-            var inheritAppContext = (opts.inherit == undefined) ? true : opts.inherit;
+            var inheritAppContext = (opts.inherit === undefined) ? true : opts.inherit;
 
             appDescriptor = new Bahmni.Common.AppFramework.AppDescriptor(appName, inheritAppContext, function () {
                 return currentUser;

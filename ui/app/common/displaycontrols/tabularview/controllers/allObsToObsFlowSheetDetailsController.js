@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('bahmni.common.displaycontrol.observation')
     .controller('AllObsToObsFlowSheetDetailsController', ['$scope',
         function ($scope) {

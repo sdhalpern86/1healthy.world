@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.common.appFramework', ['authentication']);
 
 var Bahmni = Bahmni || {};

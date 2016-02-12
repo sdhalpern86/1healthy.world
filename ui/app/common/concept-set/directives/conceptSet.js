@@ -109,8 +109,8 @@ angular.module('bahmni.common.conceptSet')
                     _.each(groupMembers, function (groupMember) {
                         var conceptFullName = groupMember.concept.name;
                         var present = _.includes(_.keys(defaults), conceptFullName);
-                        if (present && groupMember.value == undefined) {
-                            if (groupMember.concept.dataType == "Coded") {
+                        if (present && groupMember.value === undefined) {
+                            if (groupMember.concept.dataType === "Coded") {
                                 setDefaultsForCodedObservations(groupMember, defaults);
                             } else {
                                 groupMember.value = defaults[conceptFullName];
@@ -118,7 +118,7 @@ angular.module('bahmni.common.conceptSet')
                         }
                         if (groupMember.groupMembers && groupMember.groupMembers.length > 0) {
                             setDefaultsForGroupMembers(groupMember.groupMembers, defaults);
-                            if (groupMember instanceof Bahmni.ConceptSet.ObservationNode && defaults[groupMember.label] && groupMember.abnormalObs && groupMember.abnormalObs.value == undefined) {
+                            if (groupMember instanceof Bahmni.ConceptSet.ObservationNode && defaults[groupMember.label] && groupMember.abnormalObs && groupMember.abnormalObs.value === undefined) {
                                 groupMember.onValueChanged(groupMember.value);
                             }
                         }
@@ -142,7 +142,7 @@ angular.module('bahmni.common.conceptSet')
 
             var getFlattenedObsValues = function (flattenedObs) {
                 return _.reduce(flattenedObs, function (flattenedObsValues, obs) {
-                    if (flattenedObsValues[obs.concept.name] == undefined) {
+                    if (flattenedObsValues[obs.concept.name] === undefined) {
                         if (obs.isMultiSelect) {
                             var selectedObsConceptNames = [];
                             _.each(obs.selectedObs, function (observation) {
@@ -167,10 +167,11 @@ angular.module('bahmni.common.conceptSet')
                 $scope.conceptSetRequired = $scope.required ? $scope.required : true;
                 var errorMessage = null;
                 var invalidNodes = $scope.rootObservation && $scope.rootObservation.groupMembers.filter(function (childNode) {
-                        if (childNode.voided)
+                        if (childNode.voided) {
                             return false;
+                        }
                         //Other than Bahmni.ConceptSet.Observation  and Bahmni.ConceptSet.ObservationNode, other concepts does not have isValueInAbsoluteRange fn
-                        if (typeof childNode.isValueInAbsoluteRange == 'function' && !childNode.isValueInAbsoluteRange()) {
+                        if (typeof childNode.isValueInAbsoluteRange === 'function' && !childNode.isValueInAbsoluteRange()) {
                             errorMessage = "The value you entered (red field) is outside the range of allowable values for that record. Please check the value.";
                             return true;
                         }
@@ -180,7 +181,9 @@ angular.module('bahmni.common.conceptSet')
             };
             contextChangeHandler.add(contextChange);
             var validateObservationTree = function () {
-                if (!$scope.rootObservation) return true;
+                if (!$scope.rootObservation) {
+                    return true;
+                }
                 $scope.atLeastOneValueIsSet = $scope.rootObservation.atLeastOneValueSet();
                 var invalidNodes = $scope.rootObservation.groupMembers.filter(function (childNode) {
                     return childNode.isObservationNode && !childNode.isValid($scope.atLeastOneValueIsSet);
@@ -191,7 +194,7 @@ angular.module('bahmni.common.conceptSet')
             validationHandler.add(validateObservationTree);
 
 
-            $scope.$on('event:showPrevious' + conceptSetName, function (event) {
+            $scope.$on('event:showPrevious' + conceptSetName, function () {
 
                 return spinner.forPromise(observationsService.fetch($scope.patient.uuid, $scope.conceptSetName, null, $scope.numberOfVisits, null, true)).then(function (response) {
                     var recentObservations = ObservationUtil.flattenObsToArray(response.data);
@@ -202,7 +205,7 @@ angular.module('bahmni.common.conceptSet')
                         var correspondingRecentObs = _.filter(recentObservations, function (recentObs) {
                             return obs.concept.uuid === recentObs.concept.uuid;
                         });
-                        if (correspondingRecentObs != null && correspondingRecentObs.length > 0) {
+                        if (correspondingRecentObs !== null && correspondingRecentObs.length > 0) {
                             correspondingRecentObs.sort(function (obs1, obs2) {
                                 return new Date(obs2.encounterDateTime) - new Date(obs1.encounterDateTime);
                             });

@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.Clinical.Selectable = function(data, selectableChildren, onSelectionChange) {
     angular.extend(this, data);
     var selectionSources = [];

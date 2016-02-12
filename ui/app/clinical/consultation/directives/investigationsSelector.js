@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.clinical')
 .controller('InvestigationsSelectorController', function($scope, spinner, configurations) {
     var Selectable = Bahmni.Clinical.Selectable;
@@ -13,7 +15,9 @@ angular.module('bahmni.clinical')
 
     var onSelectionChange = function(selectable) {
         if(selectable.isSelected()) {
-            if(selectable.isSelectedFromSelf()) addInvestigationForSelectable(selectable);
+            if(selectable.isSelectedFromSelf()) {
+                addInvestigationForSelectable(selectable);
+            }
         } else {
             removeInvestigationForSelectable(selectable);
         }
@@ -42,7 +46,9 @@ angular.module('bahmni.clinical')
             });
 
             var filter = test[$scope.filterColumn];
-            if(filters.indexOf(filter) === -1) filters.push(filter);
+            if(filters.indexOf(filter) === -1){
+                filters.push(filter);
+            }
         });
     };
 
@@ -51,7 +57,9 @@ angular.module('bahmni.clinical')
         var currentInvestigations = $scope.investigations.filter(function(investigation){ return !investigation.voided; })
         angular.forEach(currentInvestigations, function(investigation){
             var selectable = findSelectableForInvestigation(selectables, investigation);
-            if(selectable) selectable.select();
+            if(selectable) {
+                selectable.select();
+            }
         });
     }
     
@@ -78,7 +86,9 @@ angular.module('bahmni.clinical')
 
     var removeInvestigationForSelectable = function(selectable) {
         var investigation = findInvestigationForSelectable(selectable);
-        if(investigation) removeInvestigation(investigation);;
+        if(investigation) {
+            removeInvestigation(investigation);
+        }
     }
 
     var removeInvestigation = function(investigation) {

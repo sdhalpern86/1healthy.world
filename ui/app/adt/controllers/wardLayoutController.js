@@ -66,7 +66,7 @@ angular.module('bahmni.adt')
                 return $rootScope.bedDetails;
             };
 
-            $scope.fetchBedInfo = function (cell, rowIndex, columnIndex) {
+            $scope.fetchBedInfo = function (cell) {
                 if (!cell.available && !cell.empty && !cell.patientInfo) {
                     spinner.forPromise(bedService.getBedInfo(cell.bed.bedId).success(function (data) {
                         cell.patientInfo = [];
@@ -97,7 +97,7 @@ angular.module('bahmni.adt')
 
             $scope.highlightCurrentPatient = function (cell) {
                 var currentBed = $scope.getCurrentBed();
-                return !$scope.readOnly && (currentBed && currentBed.bedId == cell.bed.bedId);
+                return !$scope.readOnly && (currentBed && currentBed.bedId === cell.bed.bedId);
             };
 
             init();

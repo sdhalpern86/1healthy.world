@@ -1,4 +1,5 @@
 'use strict';
+
 var Bahmni = Bahmni || {};
 Bahmni.ConceptSet = Bahmni.ConceptSet || {};
 Bahmni.ConceptSet.FormConditions = Bahmni.ConceptSet.FormConditions || {};

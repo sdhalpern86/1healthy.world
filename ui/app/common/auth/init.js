@@ -1,4 +1,5 @@
 'use strict';
+
 var Bahmni = Bahmni || {};
 Bahmni.Auth = Bahmni.Auth || {};
 

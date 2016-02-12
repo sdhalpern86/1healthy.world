@@ -12,7 +12,7 @@ Bahmni.Common.Util.ValidationUtil = (function () {
             if (!ob.hasOwnProperty(i) || !isAcceptableType(ob[i])) {
                 continue;
             }
-            if ((typeof ob[i]) == 'object') {
+            if ((typeof ob[i]) === 'object') {
                 var flatObject = flattenObject(ob[i]);
                 for (var x in flatObject) {
                     if (!flatObject.hasOwnProperty(x) || !isAcceptableType(flatObject[x])) {
@@ -31,15 +31,19 @@ Bahmni.Common.Util.ValidationUtil = (function () {
     //To have a generic one, we need to remove the concept dependency.. And concept will be null for non concept fields
     var validate = function (complexObject, objectConfiguration) {
         var allCustomValidators = Bahmni.Registration.customValidator;
-        if(!allCustomValidators) return;
+        if(!allCustomValidators) {
+            return;
+        }
 
         var dataArray = flattenObject(complexObject);
         var errorMessages = [];
         _.every(dataArray,function(value,field){
             var isValid=true;
             var fieldSpecificValidator = allCustomValidators[field];
-            if (!fieldSpecificValidator) return isValid;
-            if (typeof fieldSpecificValidator.method == 'function' && value) {
+            if (!fieldSpecificValidator) {
+                return isValid;
+            }
+            if (typeof fieldSpecificValidator.method === 'function' && value) {
                 var personAttributeTypeConfig = _.find(objectConfiguration,{name:field});
                 isValid = fieldSpecificValidator.method(field, value, personAttributeTypeConfig);
                 if (!isValid){

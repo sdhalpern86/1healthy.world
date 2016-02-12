@@ -8,7 +8,7 @@ angular.module('bahmni.common.uicontrols.programmanagment')
             _.forEach($scope.programAttributeTypes, function (programAttributeType) {
                 var programAttribute = getProgramAttributeByType(programAttributes, programAttributeType);
 
-                if(programAttribute != undefined && !programAttribute.voided) {
+                if(programAttribute !== undefined && !programAttribute.voided) {
                     programAttributesMap[programAttributeType.name] = programAttribute.value;
                     if(isCodedConceptFormat(programAttributeType.format)) {
                         programAttributesMap[programAttributeType.name] = programAttribute.value && programAttribute.value.uuid;
@@ -29,27 +29,28 @@ angular.module('bahmni.common.uicontrols.programmanagment')
             }
             else if(isCodedConceptFormat(attributeType.format)) {
                 var mrsAnswer = _.find(attributeType.answers, function(answer){
-                    return answer.conceptId == programAttributesMap[attributeType.name];
+                    return answer.conceptId === programAttributesMap[attributeType.name];
                 });
                 return mrsAnswer ? mrsAnswer.description : "";
             }
-            else
-              return programAttributesMap[attributeType.name];
+            else {
+                return programAttributesMap[attributeType.name];
+            }
 
         };
 
         var getProgramAttributeByType = function(programAttributes, attributeType) {
             return _.find(programAttributes, function (programAttribute) {
-                return programAttribute.attributeType.uuid == attributeType.uuid;
+                return programAttribute.attributeType.uuid === attributeType.uuid;
             });
         };
 
         var isDateFormat = function(format){
-            return format == "org.openmrs.util.AttributableDate" || format == "org.openmrs.customdatatype.datatype.DateDatatype";
+            return format === "org.openmrs.util.AttributableDate" || format === "org.openmrs.customdatatype.datatype.DateDatatype";
         };
 
         var isCodedConceptFormat = function(format){
-            return format == "org.bahmni.module.bahmnicore.customdatatype.datatype.CodedConceptDatatype";
+            return format === "org.bahmni.module.bahmnicore.customdatatype.datatype.CodedConceptDatatype";
         };
 
         $scope.program.patientProgramAttributes = $scope.getProgramAttributesMap();

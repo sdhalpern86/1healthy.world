@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, retrieveUserCallback, mergeService) {
     this.id = null;
     this.instanceOf = null;
@@ -22,9 +24,9 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
         _.values(currentExtensions).forEach(function(extn) {
             if(extn) {
                 var existing = self[currentExtensionPoints].filter(function (ep) {
-                    return ep.id == extn.extensionPointId;
+                    return ep.id === extn.extensionPointId;
                 });
-                if (existing.length == 0) {
+                if (existing.length === 0) {
                     self[currentExtensionPoints].push({
                         id: extn.extensionPointId,
                         description: extn.description
@@ -50,7 +52,7 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
         if (template.configOptions) {
             _.values(template.configOptions).forEach(function(opt) {
                 var existing = self.configs.filter(function(cfg) {
-                    return cfg.name == opt.name;
+                    return cfg.name === opt.name;
                 });
                 if (existing.length > 0) {
                     existing[0].description = opt.description;
@@ -81,7 +83,7 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
             extensionPoints.forEach(function (iep) {
                 if (iep) {
                     var existing = self[currentExtensionPoints].filter(function (ep) {
-                        return ep.id == iep.id;
+                        return ep.id === iep.id;
                     });
                     if (existing.length === 0) {
                         self[currentExtensionPoints].push(iep);
@@ -114,9 +116,9 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
                 return priv.retired ? "" : priv.name;
             });
             var appsExtns = currentExtensions.filter(function (extn) {
-                return ((extnType==='all') || (extn.type===extnType))
-                    && (extn.extensionPointId === extPointId) && (!extn.requiredPrivilege
-                    || (userPrivileges.indexOf(extn.requiredPrivilege) >= 0));
+                return ((extnType==='all') || (extn.type===extnType)) &&
+                    (extn.extensionPointId === extPointId) && (!extn.requiredPrivilege ||
+                    (userPrivileges.indexOf(extn.requiredPrivilege) >= 0));
             });
             appsExtns.sort(function(extn1, extn2) {
                 return extn1.order - extn2.order;
@@ -151,7 +153,7 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
 
     var getConfig = function(config, configName){
         var cfgList = _.values(config).filter(function (cfg) {
-            return cfg.name == configName;
+            return cfg.name === configName;
         });
         return (cfgList.length > 0) ? cfgList[0] : null;
     }
@@ -167,7 +169,7 @@ Bahmni.Common.AppFramework.AppDescriptor = function (context, inheritContext, re
     this.getConfigValue = function(configName, shouldMerge) {
         var config = this.getConfig(configName, shouldMerge);
 
-        if(config != null && configName === "patientInformation"){
+        if(config !== null && configName === "patientInformation"){
             config.value = _.sortBy(config.value,'order');
         }
 

@@ -55,7 +55,7 @@ angular.module('bahmni.common.photoCapture')
                     var onConfirmationPromise = scope[iAttrs.capturePhoto](image);
                     onConfirmationPromise.then(function(){
                         onConfirmationSuccess(image);
-                    }, function(response){
+                    }, function(){
                         alert("Failed to save image. Please try again later");
                     });
                 } else {
@@ -93,8 +93,9 @@ angular.module('bahmni.common.photoCapture')
                     dialogOpen = false;
                     if (activeStream) {
                         var activeStreamTrack = activeStream.getTracks();
-                        if(activeStreamTrack)
+                        if(activeStreamTrack) {
                             activeStreamTrack[0].stop();
+                        }
                     }
                 }
             });

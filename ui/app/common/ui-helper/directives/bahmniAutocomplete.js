@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.common.uiHelper')
 .directive('bahmniAutocomplete', function () {
     var link = function (scope, element, attrs, ngModelCtrl) {
@@ -9,7 +11,9 @@ angular.module('bahmni.common.uiHelper')
         var validationMessage = scope.validationMessage || 'Please select a value from auto complete';
 
         var validateIfNeeded = function(value){
-           if(!scope.strictSelect) return;
+           if(!scope.strictSelect) {
+               return;
+           }
             scope.isInvalid = (value !== scope.selectedValue);
             if (_.isEmpty(value)){
                 scope.isInvalid = false;
@@ -33,19 +37,21 @@ angular.module('bahmni.common.uiHelper')
             },
             select: function (event, ui) {
                 scope.selectedValue = ui.item.value;
-                if(onSelect != null) {
+                if(onSelect !== null) {
                     onSelect(ui.item);
                 }
                 ngModelCtrl.$setViewValue(ui.item.value);
                 validateIfNeeded(ui.item.value);
-                if(scope.blurOnSelect) element.blur();
+                if(scope.blurOnSelect) {
+                    element.blur();
+                }
                 scope.$apply();
                 scope.$eval(attrs.ngDisabled);
                 scope.$apply();
                 return true;
             },
             search: function (event, ui) {
-                if(scope.onEdit != null){
+                if(scope.onEdit !== null){
                     scope.onEdit(ui.item);
                 }
                 var searchTerm = $.trim(element.val());

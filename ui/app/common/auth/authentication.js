@@ -44,11 +44,12 @@ angular.module('authentication')
             } else {
                 getAuthFromServer(username, password).success(function(data) {
                     if(offlineApp) {
-                        if(authenticationResponse.authenticated == true)
+                        if(authenticationResponse.authenticated === true) {
                             offlineService.setItem(authenticationResponse, data);
+                        }
                     }
                     deferrable.resolve(data);
-                }).error(function(data){
+                }).error(function(){
                     deferrable.reject('LOGIN_LABEL_LOGIN_ERROR_MESSAGE_KEY');
                 });
             }
@@ -57,7 +58,7 @@ angular.module('authentication')
 
         var hasAnyActiveProvider = function (providers) {
             return _.filter(providers, function (provider) {
-                    return (provider.retired == undefined || provider.retired == "false")
+                    return (provider.retired === undefined || provider.retired === "false")
                 }).length > 0;
         };
 
@@ -80,7 +81,7 @@ angular.module('authentication')
             if(offlineApp) {
                 sessionCleanup();
             } else {
-                destroySessionFromServer().then(function(data){
+                destroySessionFromServer().then(function(){
                     sessionCleanup();
                 });
             }
@@ -93,7 +94,7 @@ angular.module('authentication')
             createSession(username,password).then(function(data) {
                 if (data.authenticated) {
                     $bahmniCookieStore.put(Bahmni.Common.Constants.currentUser, username, {path: '/', expires: 7});
-                    if(location != undefined) {
+                    if(location !== undefined) {
                         $bahmniCookieStore.remove(Bahmni.Common.Constants.locationCookieName);
                         $bahmniCookieStore.put(Bahmni.Common.Constants.locationCookieName, {name: location.display, uuid: location.uuid}, {path: '/', expires: 7});
                     }
@@ -183,7 +184,7 @@ angular.module('authentication')
                     $rootScope.$broadcast('event:auth-loginRequired');
                 }
             });
-            sessionDetails.error(function(data){
+            sessionDetails.error(function(){
                 defer.reject('User not authenticated');
                 $rootScope.$broadcast('event:auth-loginRequired');
             });
@@ -196,7 +197,7 @@ angular.module('authentication')
 
     }]).directive('logOut',['sessionService', '$window', function(sessionService, $window) {
         return {
-            link: function(scope, element, attrs) {
+            link: function(scope, element) {
                 element.bind('click', function() {
                     scope.$apply(function() {
                         sessionService.destroy().then(
@@ -209,10 +210,10 @@ angular.module('authentication')
             }
         };
     }])
-    .directive('btnUserInfo', ['$rootScope', '$window', function($rootScope, $window) {
+    .directive('btnUserInfo', ['$rootScope', '$window', function() {
         return {
             restrict: 'CA',
-            link: function(scope, elem, attrs) {
+            link: function(scope, elem) {
                 elem.bind('click', function(event) {
                     $(this).next().toggleClass('active');
                     event.stopPropagation();

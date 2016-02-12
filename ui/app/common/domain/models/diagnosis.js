@@ -27,15 +27,15 @@ Bahmni.Common.Domain.Diagnosis = function (codedAnswer, order, certainty, existi
     };
 
     self.isPrimary = function () {
-        return self.order == "PRIMARY";
+        return self.order === "PRIMARY";
     };
 
     self.isSecondary = function () {
-        return self.order == "SECONDARY";
+        return self.order === "SECONDARY";
     };
 
     self.isRuledOut = function(){
-        return self.diagnosisStatus == $rootScope.diagnosisStatus;
+        return self.diagnosisStatus === $rootScope.diagnosisStatus;
     };
 
     self.answerNotFilled = function () {
@@ -43,9 +43,9 @@ Bahmni.Common.Domain.Diagnosis = function (codedAnswer, order, certainty, existi
     };
 
     self.isValidAnswer = function () {
-        return (self.codedAnswer.name && self.codedAnswer.uuid)
-            || (self.codedAnswer.name && !self.codedAnswer.uuid && self.isNonCodedAnswer)
-            || self.answerNotFilled();
+        return (self.codedAnswer.name && self.codedAnswer.uuid) ||
+            (self.codedAnswer.name && !self.codedAnswer.uuid && self.isNonCodedAnswer) ||
+            self.answerNotFilled();
     };
     self.isValidOrder = function () {
         return self.answerNotFilled() || self.order !== undefined;

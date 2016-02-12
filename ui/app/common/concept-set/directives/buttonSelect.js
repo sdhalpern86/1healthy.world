@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.common.conceptSet')
     .directive('buttonSelect', function () {
         return {
@@ -19,7 +21,7 @@ angular.module('bahmni.common.conceptSet')
 
                 $scope.select = function (answer) {
                     $scope.observation.toggleSelection(answer);
-                    if ($scope.$parent.observation && typeof $scope.$parent.observation.onValueChanged == 'function') {
+                    if ($scope.$parent.observation && typeof $scope.$parent.observation.onValueChanged === 'function') {
                         $scope.$parent.observation.onValueChanged();
                     }
                     $scope.$parent.handleUpdate();

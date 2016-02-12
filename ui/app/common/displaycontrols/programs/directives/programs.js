@@ -1,7 +1,8 @@
+'use strict';
+
 angular.module('bahmni.common.displaycontrol.programs')
     .directive('programs', ['programService',
         function (programService) {
-            'use strict';
             var controller = function ($scope) {
                 programService.getPatientPrograms($scope.patient.uuid, true).then(function (patientPrograms) {
                     $scope.activePrograms = patientPrograms.activePrograms;
@@ -29,24 +30,27 @@ angular.module('bahmni.common.displaycontrol.programs')
                     else if(isCodedConceptFormat(attribute.attributeType.format)) {
                         var mrsAnswer = attribute.value;
                         var displayName = mrsAnswer.display;
-                        if (mrsAnswer.names && mrsAnswer.names.length == 2) {
-                            if (mrsAnswer.name.conceptNameType == 'FULLY_SPECIFIED') {
-                                if (mrsAnswer.names[0].display == displayName)
+                        if (mrsAnswer.names && mrsAnswer.names.length === 2) {
+                            if (mrsAnswer.name.conceptNameType === 'FULLY_SPECIFIED') {
+                                if (mrsAnswer.names[0].display === displayName) {
                                     displayName = mrsAnswer.names[1].display;
-                                else
+                                }
+                                else {
                                     displayName = mrsAnswer.names[0].display;
+                                }
                             }
                         }
                         return displayName;
                     }
-                    else
+                    else {
                         return attribute.value;
+                    }
                 };
                 var isDateFormat = function(format){
-                    return format == "org.openmrs.customdatatype.datatype.DateDatatype";
+                    return format === "org.openmrs.customdatatype.datatype.DateDatatype";
                 };
                 var isCodedConceptFormat = function(format){
-                    return format == "org.bahmni.module.bahmnicore.customdatatype.datatype.CodedConceptDatatype";
+                    return format === "org.bahmni.module.bahmnicore.customdatatype.datatype.CodedConceptDatatype";
                 };
             };
             return {

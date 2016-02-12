@@ -45,7 +45,6 @@
   "REGISTRATION_LABEL_TILL":"jusqu'à",
   "REGISTRATION_LABEL_SELECT_RELATIONSHIP_TYPE":"Sélectionner le type de relation",
   "REGISTRATION_LABEL_ENTER_NAME_ID":"Entrez le nom ou l'ID",
-  "REGISTRATION_LABEL_ENTER_ID":"entrer ID",
   "REGISTRATION_LABEL_VALID_PATIENT_IDENTIFIER":"S'il vous plaît entrer un identifiant valide patients",
   "REGISTRATION_LABEL_PROVIDER_AUTOCOMPLETE_LIST":"S'il vous plaît sélectionner un fournisseur dans la liste d'auto-complétion",
   "REGISTRATION_LABEL_ENTER_NAME":"Entrez le nom",

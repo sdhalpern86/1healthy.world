@@ -21,9 +21,9 @@ angular.module('bahmni.common.displaycontrol.forms')
                     var filterList = [];
                     _.each(formData, function (item) {
                         var foundElement = _.find(filterList, function (filteredItem) {
-                            return item.concept.uuid == filteredItem.concept.uuid;
+                            return item.concept.uuid === filteredItem.concept.uuid;
                         });
-                        if (foundElement == undefined) {
+                        if (foundElement === undefined) {
                             filterList.push(item);
                         }
                     });
@@ -49,7 +49,7 @@ angular.module('bahmni.common.displaycontrol.forms')
                 $scope.getDisplayName = function (data) {
                     var concept = data.concept;
                     var displayName = data.concept.displayString;
-                    if (concept.names && concept.names.length === 1 && concept.names[0].name != "") {
+                    if (concept.names && concept.names.length === 1 && concept.names[0].name !== "") {
                         displayName = concept.names[0].name;
                     }
                     else if (concept.names && concept.names.length === 2) {

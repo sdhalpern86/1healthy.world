@@ -14,8 +14,9 @@ angular.module('bahmni.clinical')
                         showTime = true;
                     }
                 } else {
-                    if ($scope.showTimeForProgress)
+                    if ($scope.showTimeForProgress) {
                         showTime = true;
+                    }
                 }
                 return {
                     showDate: showDate,

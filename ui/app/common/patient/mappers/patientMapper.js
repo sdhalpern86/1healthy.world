@@ -64,9 +64,15 @@ Bahmni.PatientMapper = function (patientConfig, $rootScope,$translate) {
         var DateUtil = Bahmni.Common.Util.DateUtil;
         var age = DateUtil.diffInYearsMonthsDays(birthDate, DateUtil.now());
         var ageInString = "";
-        if(age.years) ageInString += age.years + " <span> "+$translate.instant("CLINICAL_YEARS_TRANSLATION_KEY")+" </span>";
-        if(age.months) ageInString += age.months + "<span>  "+$translate.instant("CLINICAL_MONTHS_TRANSLATION_KEY")+" </span>";
-        if(age.days) ageInString += age.days + "<span>  "+$translate.instant("CLINICAL_DAYS_TRANSLATION_KEY")+" </span>";
+        if(age.years) {
+            ageInString += age.years + " <span> " + $translate.instant("CLINICAL_YEARS_TRANSLATION_KEY") + " </span>";
+        }
+        if(age.months) {
+            ageInString += age.months + "<span>  " + $translate.instant("CLINICAL_MONTHS_TRANSLATION_KEY") + " </span>";
+        }
+        if(age.days) {
+            ageInString += age.days + "<span>  " + $translate.instant("CLINICAL_DAYS_TRANSLATION_KEY") + " </span>";
+        }
         return ageInString;
     };
 
@@ -82,13 +88,14 @@ Bahmni.PatientMapper = function (patientConfig, $rootScope,$translate) {
     };
 
     var parseDate = function (dateStr) {
-        if (dateStr)
+        if (dateStr) {
             return Bahmni.Common.Util.DateUtil.parse(dateStr.substr(0, 10));
+        }
         return dateStr;
     };
 
     var mapGenderText = function (genderChar) {
-        if (genderChar == null) {
+        if (genderChar === null) {
             return null;
         }
         return "<span>"+ $rootScope.genderMap[angular.uppercase(genderChar)]+ "</span>";
@@ -101,7 +108,7 @@ Bahmni.PatientMapper = function (patientConfig, $rootScope,$translate) {
         if (openmrsPatient.person.attributes && openmrsPatient.person.attributes.length > 0) {
             var bloodGroup;
              _.forEach(openmrsPatient.person.attributes, function(attribute) {
-                    if(attribute.attributeType.display == "bloodGroup") {
+                    if(attribute.attributeType.display === "bloodGroup") {
                        bloodGroup = attribute.display;
                     }
             });

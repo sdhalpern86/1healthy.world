@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.ConceptSet.TabularObservations = function(obsGroups, parentObs, conceptUIConfig) {
     this.parentObs = parentObs;
     this.concept = obsGroups[0] && obsGroups[0].concept;
@@ -30,7 +32,7 @@ Bahmni.ConceptSet.TabularObservations = function(obsGroups, parentObs, conceptUI
     this.remove = function(row) {
         row.void();
         this.rows.splice(this.rows.indexOf(row), 1);
-        if(this.rows.length == 0) {
+        if(this.rows.length === 0) {
             this.addNew(row);
         }
     };
@@ -52,7 +54,7 @@ Bahmni.ConceptSet.TabularObservations = function(obsGroups, parentObs, conceptUI
     };
 
     this.canAddMore = function() {
-        return this.getConceptUIConfig().allowAddMore == true;
+        return this.getConceptUIConfig().allowAddMore === true;
     };
 
     this.atLeastOneValueSet = function(){

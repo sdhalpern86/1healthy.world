@@ -1,8 +1,10 @@
+'use strict';
+
 angular.module('bahmni.common.uiHelper')
     .directive('toggle', function () {
-        var link = function ($scope, element, attrs) {
+        var link = function ($scope, element) {
             $scope.$watch("toggle", function (value) {
-                if(value!= undefined) {
+                if(value !== undefined) {
                     $(element).toggleClass('active', value)
                 }
             });

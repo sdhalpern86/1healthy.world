@@ -3,7 +3,6 @@
   "LOGIN_MESSAGE_ENTER_USERNAME_KEY": "Entrez votre nom d'utilisateur",
   "LOGIN_MESSAGE_ENTER_PASSWORD_KEY": "Entrez votre mot de passe",
   "LOGIN_LABEL_SELECT_LOCALE_KEY": "Choisissez le pays:",
-  "LOGIN_LABEL_LOGIN_ERROR_MESSAGE_KEY": "Vous n'êtes pas authentifié ou votre session a expiré . Connectez vous s'il vous plait.",
   "LOGIN_LABEL_SELECT_LOCATION_KEY": "Choisir la localité",
   "LOGIN_LABEL_PASSWORD_KEY": "Mot de passe",
   "LOGIN_LABEL_LOCATION_KEY": "emplacement",

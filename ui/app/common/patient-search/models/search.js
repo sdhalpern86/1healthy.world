@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.Common.PatientSearch.Search = function(searchTypes) {
 	var self = this;
     self.searchTypes = searchTypes || [];
@@ -12,7 +14,7 @@ Bahmni.Common.PatientSearch.Search = function(searchTypes) {
 
     self.switchSearchType = function (searchType) {
         self.noResultsMessage = null;
-        if (self.searchType != searchType)
+        if (self.searchType !== searchType)
         {
             self.searchParameter = '';
             self.searchType = searchType;
@@ -40,7 +42,7 @@ Bahmni.Common.PatientSearch.Search = function(searchTypes) {
 
     self.updateSearchResults = function (patientList) {
         self.updatePatientList(patientList);
-        if (self.activePatients.length === 0 && self.searchParameter != '') {
+        if (self.activePatients.length === 0 && self.searchParameter !== '') {
             self.noResultsMessage = "No results found";
         } else {
             self.noResultsMessage = null;
@@ -56,7 +58,7 @@ Bahmni.Common.PatientSearch.Search = function(searchTypes) {
     };
 
 	self.isSelectedSearch = function(searchType) {
-        return self.searchType == searchType;
+        return self.searchType === searchType;
     };
 
     self.isCurrentSearchLookUp = function() {

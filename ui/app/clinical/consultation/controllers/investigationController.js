@@ -21,7 +21,9 @@ angular.module('bahmni.clinical')
                 return true;
             }
         })
-        if(filteredInvestigation.length === $scope.consultation.investigations.length) return true;
+        if(filteredInvestigation.length === $scope.consultation.investigations.length) {
+            return true;
+        }
         return false;
     }
     $scope.isValidInvestigation = function() {

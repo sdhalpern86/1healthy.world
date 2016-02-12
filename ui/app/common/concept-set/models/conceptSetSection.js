@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.ConceptSet.ConceptSetSection = function (extensions, user, config, observations, conceptSet) {
     
     var self = this;

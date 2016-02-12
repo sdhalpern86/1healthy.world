@@ -92,7 +92,7 @@ angular.module('bahmni.registration')
                 if (fieldsToPopulate) {
                     _.each(fieldsToPopulate, function(field) {
                         var addressLevel = _.find($scope.addressLevels, function(level) {
-                            return level.name == field;
+                            return level.name === field;
                         });
                         if (addressLevel) {
                             $scope.patient.address[addressLevel.addressField] = $rootScope.loggedInLocation[addressLevel.addressField];

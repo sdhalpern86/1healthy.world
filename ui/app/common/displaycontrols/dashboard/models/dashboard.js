@@ -80,20 +80,23 @@ Bahmni.Common.DisplayControl.Dashboard = function (config) {
         {
             sectionGroups = this.groupOneFourthPageSection(lastSection, lastElement, lastSectionIndex, section, sectionGroups, nextSection);
         }
-        else
+        else {
             sectionGroups = this.groupHalfPageSection(lastSection, lastElement, lastSectionIndex, section, sectionGroups);
+        }
         return sectionGroups;
     };
 
     this.groupThreeFourthPageSection = function(lastSection, lastElement , lastSectionIndex , section , sectionGroups){
 
         var lastSectionLength = lastSection.length;
-        var isLastSectionOneFourth = lastSectionLength==1 && this.isOneFourthPageSection(lastSection[lastSectionIndex]);
+        var isLastSectionOneFourth = lastSectionLength === 1 && this.isOneFourthPageSection(lastSection[lastSectionIndex]);
 
-        if(_.isEmpty(lastSection) || isLastSectionOneFourth)
+        if(_.isEmpty(lastSection) || isLastSectionOneFourth) {
             sectionGroups[lastElement].push(section);
-        else
+        }
+        else {
             sectionGroups.push([section]);
+        }
         return sectionGroups;
     };
 
@@ -102,8 +105,9 @@ Bahmni.Common.DisplayControl.Dashboard = function (config) {
         if (this.addOneFourthElementToLastSection(lastSection, lastElement, lastSectionIndex, nextSection)) {
             sectionGroups[lastElement].push(section);
         }
-        else
+        else {
             sectionGroups.push([section]);
+        }
         return sectionGroups;
     };
 
@@ -119,10 +123,12 @@ Bahmni.Common.DisplayControl.Dashboard = function (config) {
 
         var lastSectionLength = lastSection.length;
         var isLastSectionNotThreeFourth = !this.isThreeFourthPageSection(lastSection[lastSectionIndex]) && !this.isThreeFourthPageSection(lastSection[0]);
-        if(_.isEmpty(lastSection) || lastSectionLength > 2 || isLastSectionNotThreeFourth)
+        if(_.isEmpty(lastSection) || lastSectionLength > 2 || isLastSectionNotThreeFourth) {
             sectionGroups[lastElement].push(section);
-        else
+        }
+        else {
             sectionGroups.push([section]);
+        }
         return sectionGroups;
     }
 };

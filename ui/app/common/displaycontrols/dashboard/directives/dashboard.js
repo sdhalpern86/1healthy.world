@@ -26,8 +26,9 @@ angular.module('bahmni.common.displaycontrol.dashboard')
             }
             $scope.containsThreeFourthPageSection = function (sections) {
                 var hasThreeFourthSection = this.hasThreeFourthPageSection(sections, 0) || this.hasThreeFourthPageSection(sections, 1);
-                if(sections.length==1)
-                return (this.hasThreeFourthPageSection(sections, 0));
+                if(sections.length === 1) {
+                    return (this.hasThreeFourthPageSection(sections, 0));
+                }
 
                 return hasThreeFourthSection;
             };

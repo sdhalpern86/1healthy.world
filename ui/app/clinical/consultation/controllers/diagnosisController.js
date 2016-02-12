@@ -61,7 +61,7 @@ angular.module('bahmni.clinical')
                         var memberFound = _.find($scope.diagnosisMetaData.setMembers, function (member) {
                             return member.name.name === 'Bahmni Diagnosis Status'
                         });
-                        return memberFound != undefined;
+                        return memberFound !== undefined;
                     };
                 });
             };
@@ -122,7 +122,7 @@ angular.module('bahmni.clinical')
             var alreadyAddedToDiagnosis = function (diagnosis) {
                 var isPresent = false;
                 $scope.consultation.newlyAddedDiagnoses.forEach(function (d) {
-                    if (d.codedAnswer.uuid == diagnosis.concept.uuid) {
+                    if (d.codedAnswer.uuid === diagnosis.concept.uuid) {
                         isPresent = true;
                     }
                 });
@@ -148,10 +148,10 @@ angular.module('bahmni.clinical')
             };
 
             $scope.deleteDiagnosis = function (diagnosis) {
-                var obsUUid = diagnosis.existingObs != null ? diagnosis.existingObs : diagnosis.previousObs;
+                var obsUUid = diagnosis.existingObs !== null ? diagnosis.existingObs : diagnosis.previousObs;
 
                 spinner.forPromise(
-                    diagnosisService.deleteDiagnosis(obsUUid).then(function (result) {
+                    diagnosisService.deleteDiagnosis(obsUUid).then(function () {
                         messagingService.showMessage('info', 'Deleted');
                         var currentUuid = $scope.consultation.savedDiagnosesFromCurrentEncounter.length > 0 ?
                             $scope.consultation.savedDiagnosesFromCurrentEncounter[0].encounterUuid : "";
@@ -196,7 +196,7 @@ angular.module('bahmni.clinical')
                         return diagnosis.isEmpty();
                     }
                 );
-                if (emptyRows.length == 0) {
+                if (emptyRows.length === 0) {
                     addPlaceHolderDiagnosis();
                 }
             };

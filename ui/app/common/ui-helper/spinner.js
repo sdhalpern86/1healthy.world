@@ -7,7 +7,7 @@ angular.module('bahmni.common.uiHelper')
         var show = function () {
            var token = Math.random();
            tokens.push(token);
-           if($('#overlay').length == 0) {
+           if($('#overlay').length === 0) {
                 $('body').prepend('<div id="overlay"><div></div></div>');
            }
            $('#overlay').stop().show();

@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.DocumentUpload.Visit = function () {
     var DocumentImage = Bahmni.Common.DocumentImage;
     this.startDatetime = "";
@@ -59,7 +61,7 @@ Bahmni.DocumentUpload.Visit = function () {
     };
 
     this.isNew = function () {
-        return this.uuid == null;
+        return this.uuid === null;
     };
 
     this.hasFiles = function () {
@@ -67,7 +69,9 @@ Bahmni.DocumentUpload.Visit = function () {
     };
 
     this.startDate = function () {
-        if(!this.isNew()) return moment(this.startDatetime).toDate();
+        if(!this.isNew()) {
+            return moment(this.startDatetime).toDate();
+        }
         return this.parseDate(this.startDatetime);
     };
 
@@ -76,7 +80,9 @@ Bahmni.DocumentUpload.Visit = function () {
     };
 
     this.parseDate = function (date) {
-        if(date instanceof Date) return date;
+        if(date instanceof Date) {
+            return date;
+        }
         var dateFormat = (date && date.indexOf('-') !== -1) ? androidDateFormat : Bahmni.Common.Constants.dateFormat;
         return  moment(date, dateFormat).toDate();
     };
@@ -86,7 +92,7 @@ Bahmni.DocumentUpload.Visit = function () {
         var alreadyPresent = this.files.filter(function (img) {
             return img.encodedValue === file;
         });
-        if (alreadyPresent.length == 0) {
+        if (alreadyPresent.length === 0) {
             savedImage = new DocumentImage({"encodedValue": file, "new": true});
             this.files.push(savedImage);
         }

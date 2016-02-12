@@ -2,7 +2,7 @@
 
 angular.module('bahmni.common.displaycontrol.obsVsObsFlowSheet').directive('obsToObsFlowSheet', ['$translate', 'spinner', 'observationsService', 'conceptSetService', '$q', 'conceptSetUiConfigService',
     function ($translate, spinner, observationsService, conceptSetService, $q, conceptSetUiConfigService) {
-        var link = function ($scope, element, attrs) {
+        var link = function ($scope) {
             $scope.config = $scope.isOnDashboard ? $scope.section.dashboardParams : $scope.section.allDetailsParams;
             $scope.isEditable = $scope.config.isEditable;
             var patient = $scope.patient;
@@ -14,7 +14,7 @@ angular.module('bahmni.common.displaycontrol.obsVsObsFlowSheet').directive('obsT
                 }).then(function (result) {
                     var templateConcept = result && result.data && result.data.results && result.data.results[0];
                     var displayName = templateConcept && templateConcept.displayString;
-                    if (templateConcept && templateConcept.names && templateConcept.names.length === 1 && templateConcept.names[0].name != "") {
+                    if (templateConcept && templateConcept.names && templateConcept.names.length === 1 && templateConcept.names[0].name !== "") {
                         displayName = templateConcept.names[0].name;
                     }
                     else if (templateConcept && templateConcept.names && templateConcept.names.length === 2) {
@@ -40,7 +40,7 @@ angular.module('bahmni.common.displaycontrol.obsVsObsFlowSheet').directive('obsT
             }
 
             var init = function () {
-                return $q.all([getObsInFlowSheet(), getTemplateDisplayName()]).then(function (results) {
+                return $q.all([getObsInFlowSheet(), getTemplateDisplayName()]).then(function () {
                 });
             };
 
@@ -99,7 +99,7 @@ angular.module('bahmni.common.displaycontrol.obsVsObsFlowSheet').directive('obsT
 
                     if (observations[index].concept.dataType === "Date") {
                         var conceptName = observations[index].concept.name;
-                        if (conceptName && conceptSetUiConfigService.getConfig()[conceptName] && conceptSetUiConfigService.getConfig()[conceptName].displayMonthAndYear == true) {
+                        if (conceptName && conceptSetUiConfigService.getConfig()[conceptName] && conceptSetUiConfigService.getConfig()[conceptName].displayMonthAndYear === true) {
                             name = Bahmni.Common.Util.DateUtil.getDateInMonthsAndYears(name);
                         }
                         else {
@@ -115,7 +115,7 @@ angular.module('bahmni.common.displaycontrol.obsVsObsFlowSheet').directive('obsT
             };
 
             $scope.isMonthAvailable = function () {
-                return $scope.obsTable.rows[0].columns['Month'] != null
+                return $scope.obsTable.rows[0].columns['Month'] !== null
             };
 
             spinner.forPromise(init());

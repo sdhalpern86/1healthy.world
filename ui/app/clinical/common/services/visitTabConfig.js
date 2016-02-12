@@ -2,7 +2,6 @@
 
 angular.module('bahmni.clinical')
     .service('visitTabConfig', ['$q', 'appService', function ($q, appService) {
-        var self = this;
 
         var mandatoryConfigPromise = function() {
             return appService.loadMandatoryConfig(Bahmni.Clinical.Constants.mandatoryVisitConfigUrl);
@@ -21,8 +20,9 @@ angular.module('bahmni.clinical')
                     var sortedSections = _.sortBy(results[1][tab].sections, function (section) {
                         return section.displayOrder;
                     })
-                    if (sortedSections.length > 0)
+                    if (sortedSections.length > 0) {
                         results[1][tab].sections = sortedSections;
+                    }
                 }
                 var mandatoryConfig = results[0].data;
                 var tabs = _.values(results[1]);

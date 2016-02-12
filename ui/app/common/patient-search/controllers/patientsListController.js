@@ -21,7 +21,7 @@ angular.module('bahmni.common.patientSearch')
         };
 
         $scope.filterPatientsAndSubmit = function() {
-            if ($scope.search.searchResults.length == 1) {
+            if ($scope.search.searchResults.length === 1) {
                 $scope.forwardPatient($scope.search.searchResults[0]);
             }
         };

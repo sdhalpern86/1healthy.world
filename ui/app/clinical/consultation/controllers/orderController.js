@@ -16,8 +16,9 @@ angular.module('bahmni.clinical')
             var showFirstLeftCategoryByDefault = function(){
                 if(!$scope.activeTab.leftCategory) {
                     var allLeftCategories = $scope.getOrderTemplate($scope.activeTab.name).setMembers;
-                    if (allLeftCategories.length > 0)
+                    if (allLeftCategories.length > 0) {
                         $scope.showLeftCategoryTests(allLeftCategories[0]);
+                    }
                 }
             };
 
@@ -38,7 +39,7 @@ angular.module('bahmni.clinical')
 
             var removeOrder = function (testUuid) {
                 var order = _.find($scope.consultation.orders, function (order) {
-                    return order.concept.uuid == testUuid;
+                    return order.concept.uuid === testUuid;
                 });
                 if (order) {
                     if (order.uuid) {
@@ -51,7 +52,7 @@ angular.module('bahmni.clinical')
 
             var createOrder = function (test) {
                 var discontinuedOrder = _.find($scope.consultation.orders, function(order) {
-                    return (test.uuid == order.concept.uuid) && order.isDiscontinued;
+                    return (test.uuid === order.concept.uuid) && order.isDiscontinued;
                 });
                 if(discontinuedOrder) {
                     discontinuedOrder.isDiscontinued = false;

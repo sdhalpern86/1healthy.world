@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.LabResultsMapper = function () {
     this.map = function (encounterTransaction) {
         return getLabResults(getLabResultObs(encounterTransaction));
@@ -22,7 +24,7 @@ Bahmni.LabResultsMapper = function () {
         var notes = [];
         obs.groupMembers = obs.groupMembers || [];
         obs.groupMembers.forEach(function (member) {
-            if (member.concept.name == "COMMENTS") {
+            if (member.concept.name === "COMMENTS") {
                 notes.push(member.value);
             }
         });
@@ -32,10 +34,9 @@ Bahmni.LabResultsMapper = function () {
     var getLabResultObs = function (encounterTransaction) {
         var labResultObs;
         encounterTransaction.observations.forEach(function (observation) {
-            if (observation.concept.name == Bahmni.Clinical.Constants.labConceptSetName) {
+            if (observation.concept.name === Bahmni.Clinical.Constants.labConceptSetName) {
                 labResultObs = observation.groupMembers;
             }
-            ;
         });
         return labResultObs || [];
     };

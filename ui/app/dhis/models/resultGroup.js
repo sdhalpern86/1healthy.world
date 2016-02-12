@@ -1,7 +1,6 @@
 'use strict';
 
 Bahmni.Dhis.ResultGroups = (function () {
-    var self = this;
 
     var ResultGroups = function () {
         this.groups = [];

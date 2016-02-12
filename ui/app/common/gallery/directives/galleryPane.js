@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.common.gallery')
     .directive('bmGalleryPane', ['$rootScope', '$document', 'observationsService', 'encounterService', 'spinner', 'configurations',
         function ($rootScope, $document, observationsService, encounterService, spinner, configurations) {
@@ -37,12 +39,12 @@ angular.module('bahmni.common.gallery')
                 $scope.showImpression = false;
 
                 $scope.isActive = function (index, tag) {
-                    return $scope.imageIndex == index && $scope.albumTag == tag;
+                    return $scope.imageIndex === index && $scope.albumTag === tag;
                 };
 
                 var getAlbumIndex = function () {
                     return _.findIndex($scope.albums, function (album) {
-                        return album.tag == $scope.albumTag;
+                        return album.tag === $scope.albumTag;
                     });
                 };
 
@@ -52,11 +54,11 @@ angular.module('bahmni.common.gallery')
                         --$scope.imageIndex;
                     }
                     else {
-                        if (albumIndex == 0) {
+                        if (albumIndex === 0) {
                             albumIndex = $scope.albums.length;
                         }
                         var previousAlbum = $scope.albums[albumIndex - 1];
-                        if (previousAlbum.images.length == 0) {
+                        if (previousAlbum.images.length === 0) {
                             $scope.showPrev(albumIndex - 1);
                         }
                         $scope.albumTag = previousAlbum.tag;
@@ -69,11 +71,11 @@ angular.module('bahmni.common.gallery')
                     if ($scope.imageIndex < $scope.albums[albumIndex].images.length - 1) {
                         ++$scope.imageIndex;
                     } else {
-                        if (albumIndex == $scope.albums.length - 1) {
+                        if (albumIndex === $scope.albums.length - 1) {
                             albumIndex = -1;
                         }
                         var nextAlbum = $scope.albums[albumIndex + 1];
-                        if (nextAlbum.images.length == 0) {
+                        if (nextAlbum.images.length === 0) {
                             $scope.showNext(albumIndex + 1);
                         }
                         $scope.albumTag = nextAlbum.tag;

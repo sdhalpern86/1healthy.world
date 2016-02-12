@@ -8,7 +8,7 @@ angular.module('bahmni.common.displaycontrol.diagnosis')
                     return diagnosisService.getDiagnoses($scope.patientUuid, $scope.visitUuid).success(function (response) {
                         var diagnosisMapper = new Bahmni.DiagnosisMapper($rootScope.diagnosisStatus);
                         $scope.allDiagnoses = diagnosisMapper.mapDiagnoses(response);
-                            if ($scope.showRuledOutDiagnoses == false) {
+                            if ($scope.showRuledOutDiagnoses === false) {
                                 $scope.allDiagnoses = _.filter($scope.allDiagnoses, function (diagnoses) {
                                     return diagnoses.diagnosisStatus !== $rootScope.diagnosisStatus;
                                 });
@@ -31,7 +31,7 @@ angular.module('bahmni.common.displaycontrol.diagnosis')
                 };
 
                 $scope.isLatestDiagnosis = function (diagnosis) {
-                    return diagnosis.latestDiagnosis ? diagnosis.existingObs == diagnosis.latestDiagnosis.existingObs : false;
+                    return diagnosis.latestDiagnosis ? diagnosis.existingObs === diagnosis.latestDiagnosis.existingObs : false;
                 };
 
                 spinner.forPromise($q.all(getPromises()));

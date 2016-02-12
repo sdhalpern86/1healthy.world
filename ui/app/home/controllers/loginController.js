@@ -33,7 +33,7 @@ angular.module('bahmni.home')
 
             if ($stateParams.showLoginMessage) {
                 $scope.errorMessageTranslateKey = "LOGIN_LABEL_LOGIN_ERROR_MESSAGE_KEY";
-            };
+            }
 
             var redirectToLandingPageIfAlreadyAuthenticated = function () {
                 sessionService.get().then(function (data) {
@@ -45,7 +45,7 @@ angular.module('bahmni.home')
 
             if ($location.path() === loginPagePath) {
                 redirectToLandingPageIfAlreadyAuthenticated();
-            };
+            }
 
             var onSuccessfulAuthentication = function () {
                 if (isOfflineApp) {
@@ -65,8 +65,8 @@ angular.module('bahmni.home')
                 $scope.errorMessageTranslateKey = null;
                 var deferrable = $q.defer();
 
-                if(isOfflineApp && offlineService.getItem(Bahmni.Common.Constants.LoginInformation)
-                    && !offlineService.validateLoginInfo($scope.loginInfo)) {
+                if(isOfflineApp && offlineService.getItem(Bahmni.Common.Constants.LoginInformation) &&
+                    !offlineService.validateLoginInfo($scope.loginInfo)) {
                     $scope.errorMessageTranslateKey = "LOGIN_LABEL_LOGIN_ERROR_MESSAGE_KEY";
                     return;
                 }

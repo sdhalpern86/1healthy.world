@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.common.uiHelper')
     .directive('bmGallery', ['$location', '$rootScope', '$compile', function ($location, $rootScope, $compile) {
 
@@ -38,7 +40,7 @@ angular.module('bahmni.common.uiHelper')
 
             var getMatchingAlbum = function(tag) {
                 return _.find($scope.albums, function (album) {
-                    return album.tag == tag;
+                    return album.tag === tag;
                 });
             };
 
@@ -158,7 +160,7 @@ angular.module('bahmni.common.uiHelper')
             scope.promise.then(function (response) {
                 angular.forEach(response, function (record) {
                     var index = imageGalleryController.addImageObservation(record, 'defaultTag');
-                    if (scope.currentObservation && scope.currentObservation.imageObservation.uuid == record.imageObservation.uuid) {
+                    if (scope.currentObservation && scope.currentObservation.imageObservation.uuid === record.imageObservation.uuid) {
                         imageGalleryController.setIndex('defaultTag', index);
                     }
                 });

@@ -12,14 +12,14 @@ Bahmni.Clinical.Specimen = function (specimen, allSamples) {
     self.typeObservation =  new Bahmni.ConceptSet.SpecimenTypeObservation(self, allSamples);
 
     var isDirtyRuleForFreeText= function(){
-        return (self.type && self.type.name=="Other" && !self.typeFreeText);
+        return (self.type && self.type.name === "Other" && !self.typeFreeText);
     }
 
     self.isDirty = function () {
-        return (self.dateCollected && !self.type)
-        || (!self.dateCollected && !self.type && self.isAdditionalAttriburtesFilled())
-        || (!self.dateCollected && self.type)
-        || (!self.dateCollected && !self.type && self.identifier) || isDirtyRuleForFreeText() ? true : false
+        return (self.dateCollected && !self.type) ||
+        (!self.dateCollected && !self.type && self.isAdditionalAttriburtesFilled()) ||
+        (!self.dateCollected && self.type) ||
+        (!self.dateCollected && !self.type && self.identifier) || isDirtyRuleForFreeText() ? true : false
     };
 
     self.isEmpty = function () {
@@ -32,7 +32,7 @@ Bahmni.Clinical.Specimen = function (specimen, allSamples) {
     }
 
     self.atLeastOneResult = function () {
-        return hasResults() && self.report.results[0].value != null;
+        return hasResults() && self.report.results[0].value !== null;
     };
 
     self.isDateCollectedDirty = function(){
@@ -50,8 +50,9 @@ Bahmni.Clinical.Specimen = function (specimen, allSamples) {
     self.isAdditionalAttriburtesFilled = function () {
         var additionalAttributes = self.sample && self.sample.additionalAttributes[0] && self.sample.additionalAttributes[0].groupMembers;
         for (var i in additionalAttributes) {
-            if (additionalAttributes[i].value)
+            if (additionalAttributes[i].value) {
                 return true;
+            }
         }
         return false;
     }

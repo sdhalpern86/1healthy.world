@@ -115,8 +115,9 @@ angular.module('bahmni.common.domain')
 
                 var mandatoryProgramAttributes = [];
                 for (var attributeName in programAttributesConfig) {
-                    if (programAttributesConfig[attributeName].required)
+                    if (programAttributesConfig[attributeName].required) {
                         mandatoryProgramAttributes.push(attributeName);
+                    }
                 }
                 return new Bahmni.Common.Domain.AttributeTypeMapper().mapFromOpenmrsAttributeTypes(response.data.results, mandatoryProgramAttributes).attributeTypes;
             });

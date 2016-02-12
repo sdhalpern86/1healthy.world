@@ -56,7 +56,7 @@ Bahmni.Clinical.TabularLabOrderResults = (function () {
             var filteredResultValue = this.tabularResult.values.filter(function(value) {
                 return value.dateIndex === dateLabel.index && value.testOrderIndex === testOrderLabel.index;
             });
-            if(filteredResultValue.length == 0){
+            if(filteredResultValue.length === 0){
                 filteredResultValue = [{"result" : " "}];
             }
             return filteredResultValue;

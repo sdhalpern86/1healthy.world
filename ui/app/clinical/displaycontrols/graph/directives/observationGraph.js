@@ -13,7 +13,9 @@ angular.module('bahmni.clinical').directive('observationGraph', ['appService', '
         var link = function ($scope, element) {
             $scope.graphId = 'graph' + $scope.$id;
 
-            if (!$scope.params) return;
+            if (!$scope.params) {
+                return;
+            }
 
             var config = new Bahmni.Clinical.ObservationGraphConfig($scope.params.config);
 
@@ -42,7 +44,7 @@ angular.module('bahmni.clinical').directive('observationGraph', ['appService', '
             }
 
             var checkWhetherYAxisIsNumericDataType = function (yAxisConceptDetails) {
-                if (yAxisConceptDetails.datatype.name != "Numeric") {
+                if (yAxisConceptDetails.datatype.name !== "Numeric") {
                     var errorMsg = Bahmni.Clinical.Constants.errorMessages.conceptNotNumeric
                         .replace(":conceptName",yAxisConceptDetails.name.name)
                         .replace(":placeErrorAccurred",$scope.params.title+" config in growthChartReference.csv");
@@ -65,9 +67,11 @@ angular.module('bahmni.clinical').directive('observationGraph', ['appService', '
                     observationGraphReferenceModel.validate();
                     referenceLines = observationGraphReferenceModel.createObservationGraphReferenceLines();
                 }
-                if (observations.length == 0) return;
+                if (observations.length === 0) {
+                    return;
+                }
 
-                if (yAxisConceptDetails != undefined) {
+                if (yAxisConceptDetails !== undefined) {
                     config.lowNormal = yAxisConceptDetails.lowNormal;
                     config.hiNormal = yAxisConceptDetails.hiNormal;
                 }

@@ -110,7 +110,9 @@ angular.module('bahmni.common.domain')
             };
 
     this.search = function (visitUuid,encounterDate) {
-        if (!encounterDate) return searchWithoutEncounterDate(visitUuid);
+        if (!encounterDate) {
+            return searchWithoutEncounterDate(visitUuid);
+        }
 
         return $http.get(Bahmni.Common.Constants.emrEncounterUrl, {
         	params:{
@@ -139,7 +141,7 @@ angular.module('bahmni.common.domain')
             if (data.results.length > 0) {
                 encounters = data.results[0].encounters;
                 encounters.forEach(function(enc) {
-                    if (typeof enc.encounterDatetime == 'string') {
+                    if (typeof enc.encounterDatetime === 'string') {
                         enc.encounterDatetime = Bahmni.Common.Util.DateUtil.parse(enc.encounterDatetime);
                     }
                     enc.encounterTypeUuid = enc.encounterType.uuid;
@@ -155,7 +157,7 @@ angular.module('bahmni.common.domain')
     this.identifyEncounterForType = function(patientUuid, encounterTypeUuid) {
         var searchable = $q.defer();
         getEncountersOfCurrentVisit(patientUuid).then(function(encounters) {
-            if (encounters.length == 0) {
+            if (encounters.length === 0) {
                 searchable.resolve(null);
                 return;
             }
@@ -164,14 +166,14 @@ angular.module('bahmni.common.domain')
                 return e2.encounterDatetime - e1.encounterDatetime;
             });
             for (var i = 0, count =  encounters.length; i < count; i++) {
-                if (encounters[i].encounterTypeUuid == encounterTypeUuid) {
+                if (encounters[i].encounterTypeUuid === encounterTypeUuid) {
                     selectedEnc = encounters[i];
                     break;
                 }
             }
             searchable.resolve(selectedEnc);
         },
-        function(responseError) {
+        function() {
             searchable.reject("Couldn't identify prerequisite encounter for this operation.");
         });
         return searchable.promise;

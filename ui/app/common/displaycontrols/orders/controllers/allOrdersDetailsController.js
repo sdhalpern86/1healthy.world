@@ -1,4 +1,5 @@
 'use strict';
+
 angular.module('bahmni.common.displaycontrol.orders')
     .controller('AllOrdersDetailsController', ['$scope',
         function ($scope) {

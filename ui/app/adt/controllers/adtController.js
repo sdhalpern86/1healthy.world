@@ -16,7 +16,7 @@ angular.module('bahmni.adt')
             $scope.getAdtConceptConfig = $scope.dashboardConfig.conceptName;
 
             var getDefaultVisitTypeUuid = function () {
-                if ($scope.visitSummary && $scope.visitSummary.stopDatetime == null) {
+                if ($scope.visitSummary && $scope.visitSummary.stopDatetime === null) {
                     return $scope.visitSummary.visitType;
                 }
                 var defaultVisitTypeName = appService.getAppDescriptor().getConfigValue('defaultVisitType');
@@ -26,7 +26,7 @@ angular.module('bahmni.adt')
             };
 
             var defaultVisitTypeUuid = getDefaultVisitTypeUuid();
-            if (defaultVisitTypeUuid == null) {
+            if (defaultVisitTypeUuid === null) {
                 messagingService.showMessage("error", "Please configure a default VisitType.");
             }
 
@@ -88,7 +88,7 @@ angular.module('bahmni.adt')
 
             var getVisit = function () {
                 var visitUuid = $stateParams.visitUuid;
-                if (visitUuid != 'null') {
+                if (visitUuid !== 'null') {
                     return visitService.getVisitSummary(visitUuid).then(function (response) {
                         $scope.visitSummary = new Bahmni.Common.VisitSummary(response.data);
                     });
@@ -192,13 +192,14 @@ angular.module('bahmni.adt')
 
 
             $scope.admit = function () {
-                if ($scope.visitSummary && $scope.visitSummary.visitType != 'IPD') {
+                if ($scope.visitSummary && $scope.visitSummary.visitType !== 'IPD') {
                     var confirmed = $window.confirm("Patient Visit Type is "+$scope.visitSummary.visitType+", Do you want to close the Visit and start new IPD Visit?");
                     if (confirmed) {
                         visitService.endVisit($scope.visitSummary.uuid);
                     }
-                    else
-                     return;
+                    else {
+                        return;
+                    }
                 }
                 var encounterData = getEncounterData($scope.encounterConfig.getAdmissionEncounterTypeUuid(), defaultVisitTypeUuid);
                 encounterService.create(encounterData).success(function (response) {
@@ -228,7 +229,7 @@ angular.module('bahmni.adt')
             };
 
             $scope.undoDischarge = function () {
-                spinner.forPromise(encounterService.delete($scope.visitSummary.getDischargeEncounterUuid(), "Undo Discharge")).success(function (response) {
+                spinner.forPromise(encounterService.delete($scope.visitSummary.getDischargeEncounterUuid(), "Undo Discharge")).success(function () {
                     var params = {
                         'encounterUuid': $scope.visitSummary.getAdmissionEncounterUuid(),
                         'visitUuid': $scope.visitSummary.uuid

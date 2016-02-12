@@ -7,7 +7,7 @@ angular.module('bahmni.common.displaycontrol.observation')
             var controller = function ($scope) {
                 $scope.showGroupDateTime = $scope.config.showGroupDateTime === false ? false : true;
 
-                var mapObservation = function (observations, config) {
+                var mapObservation = function (observations) {
 
                     var conceptsConfig = appService.getAppDescriptor().getConfigValue("conceptSetUI") || {};
                     observations = new Bahmni.Common.Obs.ObservationMapper().map(observations, conceptsConfig);
@@ -30,7 +30,6 @@ angular.module('bahmni.common.displaycontrol.observation')
 
                 var fetchObservations = function () {
                     //$scope.removeObsWithNoOrderId = angular.isDefined($scope.removeObsWithNoOrderId) ? $scope.filterObsWithOrders : false;
-                    var programConfig = appService.getAppDescriptor().getConfigValue("program") || {};
                     if ($scope.observations) {
                         mapObservation($scope.observations, $scope.config);
                         $scope.isFulfilmentDisplayControl = true;

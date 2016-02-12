@@ -2,7 +2,7 @@
 
 angular.module('bahmni.dhis')
     .controller('DhisDashboardController', ['$scope', '$state', 'TaskService', 'messagingService',
-        function ($scope, $state, taskService, messagingService) {
+        function ($scope, $state, taskService) {
             $scope.report = new Bahmni.Dhis.ReportParams.default();
 
             $scope.refresh = function() {

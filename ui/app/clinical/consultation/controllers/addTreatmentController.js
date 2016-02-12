@@ -192,7 +192,7 @@ angular.module('bahmni.clinical')
                 selectDrugFromDropdown(drugOrder.drug);
                 markEitherVariableDrugOrUniformDrug($scope.treatment);
                 $scope.treatment.currentIndex = $scope.treatments.length + 1;
-                if($scope.treatment.frequencyType == Bahmni.Clinical.Constants.dosingTypes.variable) {
+                if($scope.treatment.frequencyType === Bahmni.Clinical.Constants.dosingTypes.variable) {
                     $scope.treatment.isUniformFrequency = false;
                 }
                 $scope.treatment.quantity = $scope.treatment.quantity ? $scope.treatment.quantity : null;
@@ -222,12 +222,12 @@ angular.module('bahmni.clinical')
                 }
 
                 var unsavedNotBeingEditedOrders = $scope.treatments
-                    .filter(function(drugOrder) { return drugOrder.isBeingEdited == false});
+                    .filter(function(drugOrder) { return drugOrder.isBeingEdited === false});
 
                 var existingDrugOrders = newDrugOrder.isBeingEdited ?
                     $scope.consultation.activeAndScheduledDrugOrders
                         .filter(function (drugOrder) {
-                            return drugOrder.uuid != newDrugOrder.previousOrderUuid
+                            return drugOrder.uuid !== newDrugOrder.previousOrderUuid
                         }).concat(unsavedNotBeingEditedOrders)
                     : $scope.consultation.activeAndScheduledDrugOrders.concat(unsavedNotBeingEditedOrders);
 
@@ -236,14 +236,14 @@ angular.module('bahmni.clinical')
                 }
 
                 var potentiallyOverlappingOrders = existingDrugOrders.filter(function (drugOrder) {
-                    return (drugOrder.getDrugName() == newDrugOrder.getDrugName() && drugOrder.overlappingScheduledWith(newDrugOrder));
+                    return (drugOrder.getDrugName() === newDrugOrder.getDrugName() && drugOrder.overlappingScheduledWith(newDrugOrder));
                 });
 
                 setEffectiveDates(newDrugOrder, potentiallyOverlappingOrders);
 
 
                 var alreadyActiveSimilarOrders = existingDrugOrders.filter(function (drugOrder) {
-                    return (drugOrder.getDrugName() == newDrugOrder.getDrugName() && drugOrder.overlappingScheduledWith(newDrugOrder));
+                    return (drugOrder.getDrugName() === newDrugOrder.getDrugName() && drugOrder.overlappingScheduledWith(newDrugOrder));
                 });
 
                 if (alreadyActiveSimilarOrders.length > 0) {
@@ -270,8 +270,8 @@ angular.module('bahmni.clinical')
             };
 
             var isEffectiveStartDateSameAsToday = function (newDrugOrder) {
-                return DateUtil.isSameDate(newDrugOrder.effectiveStartDate, DateUtil.parse(newDrugOrder.encounterDate))
-                    && DateUtil.isSameDate(newDrugOrder.effectiveStartDate, DateUtil.now());
+                return DateUtil.isSameDate(newDrugOrder.effectiveStartDate, DateUtil.parse(newDrugOrder.encounterDate)) &&
+                    DateUtil.isSameDate(newDrugOrder.effectiveStartDate, DateUtil.now());
 
             };
 
@@ -334,7 +334,7 @@ angular.module('bahmni.clinical')
                 markEitherVariableDrugOrUniformDrug(treatment);
                 treatment.isBeingEdited = true;
                 $scope.treatment = treatment.cloneForEdit(index, treatmentConfig);
-                if($scope.treatment.quantity == 0){
+                if($scope.treatment.quantity === 0){
                     $scope.treatment.quantity = null;
                     $scope.treatment.quantityEnteredManually = false;
                 }
@@ -480,12 +480,12 @@ angular.module('bahmni.clinical')
                 $scope.consultation.newlyAddedTreatments = _.flatten(allTreatmentsAcrossTabs);
                 $scope.consultation.discontinuedDrugs && $scope.consultation.discontinuedDrugs.forEach(function (discontinuedDrug) {
                     var removableOrder = _.find(activeDrugOrders, {uuid: discontinuedDrug.uuid});
-                    if (discontinuedDrug != null) {
+                    if (discontinuedDrug !== null) {
                         removableOrder.orderReasonText = discontinuedDrug.orderReasonText;
                         removableOrder.dateActivated = discontinuedDrug.dateStopped;
                         removableOrder.scheduledDate = discontinuedDrug.dateStopped;
 
-                        if (discontinuedDrug.orderReasonConcept != null && discontinuedDrug.orderReasonConcept.name) {
+                        if (discontinuedDrug.orderReasonConcept !== undefined && discontinuedDrug.orderReasonConcept.name) {
                             removableOrder.orderReasonConcept = {
                                 name: discontinuedDrug.orderReasonConcept.name.name,
                                 uuid: discontinuedDrug.orderReasonConcept.uuid

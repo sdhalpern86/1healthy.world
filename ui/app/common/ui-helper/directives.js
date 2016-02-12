@@ -11,7 +11,9 @@ angular.module('bahmni.common.uiHelper')
                 element.removeAttr('required');
             };
 
-            if (!attrs.nonBlank) return addNonBlankAttrs(element);
+            if (!attrs.nonBlank) {
+                return addNonBlankAttrs(element);
+            }
 
             $scope.$watch(attrs.nonBlank, function (value) {
                 return value ? addNonBlankAttrs() : removeNonBlankAttrs();
@@ -63,7 +65,7 @@ angular.module('bahmni.common.uiHelper')
                     scope.$apply(function (scope) {
                         ngModelCtrl.$setViewValue(ui.item.value);
                         scope.$eval(attrs.ngChange);
-                        if (onSelect != null) {
+                        if (onSelect !== null) {
                             onSelect(ui.item);
                         }
                     });
@@ -94,7 +96,9 @@ angular.module('bahmni.common.uiHelper')
                     var formScope = scope.$parent;
                     var formName = attrs.name;
                     e.preventDefault();
-                    if(scope.autofillable) $(elem).find('input').trigger('change');
+                    if(scope.autofillable) {
+                        $(elem).find('input').trigger('change');
+                    }
                     if(formScope[formName].$valid) {
                         formScope.$apply(attrs.ngSubmit);
                         $(elem).removeClass('submitted-with-error');

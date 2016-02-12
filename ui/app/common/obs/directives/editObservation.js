@@ -1,3 +1,5 @@
+'use strict';
+
 angular.module('bahmni.common.obs')
     .directive('editObservation', ['$q', 'spinner', '$state','$rootScope', 'ngDialog', 'messagingService', 'encounterService', 'configurations', function ($q, spinner, $state, $rootScope, ngDialog, messagingService, encounterService,configurations) {
         var controller = function ($scope) {
@@ -32,7 +34,7 @@ angular.module('bahmni.common.obs')
                 $scope.$parent.shouldPromptBrowserReload = false;
                 var updateEditedObservation =   function(observations) {
                     return _.map(observations, function (obs) {
-                        if (obs.uuid == $scope.editableObservations[0].uuid) {
+                        if (obs.uuid === $scope.editableObservations[0].uuid) {
                             return $scope.editableObservations[0];
                         }else{
                             obs.groupMembers = updateEditedObservation(obs.groupMembers);

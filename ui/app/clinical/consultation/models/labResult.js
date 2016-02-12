@@ -1,3 +1,5 @@
+'use strict';
+
 Bahmni.Clinical.LabResult = function(name, value, alert, lowNormal, highNormal, unit, notes, members) {
     this.name = name;
     this.value = value;
@@ -19,7 +21,7 @@ Bahmni.Clinical.LabResult.prototype = {
     },
 
     isAbnormal: function() {
-        return this.alert == "A" || this.alert == "B";
+        return this.alert === "A" || this.alert === "B";
     },
 
     range: function() {

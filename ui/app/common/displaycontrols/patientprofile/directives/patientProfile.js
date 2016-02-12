@@ -35,7 +35,7 @@ angular.module('bahmni.common.displaycontrol.patientprofile')
 
             $scope.getAddress = function () {
                 var address = [];
-                if ($scope.config.addressFields != undefined && $scope.config.addressFields.length != 0) {
+                if ($scope.config.addressFields !== undefined && $scope.config.addressFields.length !== 0) {
                     $scope.config.addressFields.forEach(function (addressField) {
                         if (patient.address[addressField]) {
                             address.push(patient.address[addressField]);
@@ -53,7 +53,7 @@ angular.module('bahmni.common.displaycontrol.patientprofile')
                 $window.open("../clinical/#/"+configName+"/patient/" + patientUuid + "/dashboard");
             };
 
-            $scope.showBirthDate = $scope.config.showDOB != false && $scope.patient && $scope.patient.birthdate != undefined;
+            $scope.showBirthDate = $scope.config.showDOB !== false && $scope.patient && $scope.patient.birthdate !== undefined;
 
             spinner.forPromise(init());
         };

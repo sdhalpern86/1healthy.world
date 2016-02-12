@@ -20,7 +20,7 @@ angular.module('bahmni.home')
 
             var getLocationFor = function (uuid) {
                 return _.find($scope.locations, function (location) {
-                    return location.uuid == uuid;
+                    return location.uuid === uuid;
                 })
             };
 

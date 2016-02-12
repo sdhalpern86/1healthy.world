@@ -1,7 +1,9 @@
+'use strict';
+
 $(function(){
 	if (Modernizr.ios) {
 		//This fix is needed when we use fastclick.js on ipad
-		$(document).on("click", "label[for]", function(event) {
+		$(document).on("click", "label[for]", function() {
 			var $inputElement = $('input#' + $(this).attr('for'));
 			var elementType = $inputElement.attr('type')
 			if(elementType === 'radio') {

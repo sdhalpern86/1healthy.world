@@ -37,7 +37,6 @@ angular.module('bahmni.common.uicontrols.programmanagment')
 
     var mapAttributes = function(attribute){
         attribute.name = attribute.attributeType.description ? attribute.attributeType.description : attribute.name;
-        attribute.value = attribute.value;
         attribute.required = isAttributeRequired(attribute);
 
     };
@@ -51,7 +50,7 @@ angular.module('bahmni.common.uicontrols.programmanagment')
     };
 
         function shouldDisplayAllAttributes(programDisplayControlConfig) {
-            return (programDisplayControlConfig && programDisplayControlConfig['programAttributes'] == undefined) || programDisplayControlConfig == undefined;
+            return (programDisplayControlConfig && programDisplayControlConfig['programAttributes'] === undefined) || programDisplayControlConfig === undefined;
         }
 
         this.filterProgramAttributes = function (patientPrograms, programAttributeTypes) {

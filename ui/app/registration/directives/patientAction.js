@@ -2,20 +2,20 @@
 
 angular.module('bahmni.registration')
     .directive('patientAction', ['$window', '$location', '$state', 'spinner', '$rootScope', '$stateParams', '$bahmniCookieStore', 'appService', 'visitService', 'sessionService', 'encounterService', 'messagingService', '$translate','offlineService',
-        function ($window, $location, $state, spinner, $rootScope, $stateParams, $bahmniCookieStore, appService, visitService, sessionService, encounterService, messagingService, $translate, offlineService) {
+        function ($window, $location, $state, spinner, $rootScope, $stateParams, $bahmniCookieStore, appService, visitService, sessionService, encounterService, messagingService, $translate) {
             var controller = function ($scope) {
                 var self = this;
                 var uuid = $stateParams.patientUuid;
                 var editActionsConfig = appService.getAppDescriptor().getExtensions(Bahmni.Registration.Constants.nextStepConfigId, "config");
                 var loginLocationUuid = $bahmniCookieStore.get(Bahmni.Common.Constants.locationCookieName).uuid;
                 var defaultVisitType = $rootScope.regEncounterConfiguration.getDefaultVisitType(loginLocationUuid);
-                defaultVisitType = defaultVisitType != null ? defaultVisitType : appService.getAppDescriptor().getConfigValue('defaultVisitType');
+                defaultVisitType = defaultVisitType !== null ? defaultVisitType : appService.getAppDescriptor().getConfigValue('defaultVisitType');
                 var showStartVisitButton = appService.getAppDescriptor().getConfigValue("showStartVisitButton");
-                showStartVisitButton = showStartVisitButton != null ? showStartVisitButton : true;
+                showStartVisitButton = showStartVisitButton !== null ? showStartVisitButton : true;
 
 
                 function setForwardActionKey() {
-                    if (editActionsConfig.length == 0) {
+                    if (editActionsConfig.length === 0) {
                         $scope.forwardActionKey = self.hasActiveVisit ? 'enterVisitDetails' : 'startVisit';
                     } else {
                         $scope.actionConfig = editActionsConfig[0];
